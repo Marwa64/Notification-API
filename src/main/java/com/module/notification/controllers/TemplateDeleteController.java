@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.module.notification.notificationData.TemplateDataFile;
@@ -23,10 +24,10 @@ public class TemplateDeleteController {
 	}
 
 	//http://localhost:8083/templates/delete?id={id}
-	@RequestMapping(method = RequestMethod.DELETE, value="/template/delete/{tempID}")
+	@RequestMapping(method = RequestMethod.DELETE, value="/template/delete?id={id}")
 
 	@ResponseBody
-	public void deleteTemplate(@PathVariable("tempID") int tempID) throws IOException {		
+	public void deleteTemplate(@RequestParam("id") int tempID) throws IOException {		
 		templateDB.deleteTemplate(tempID);		
 	}	
 }
