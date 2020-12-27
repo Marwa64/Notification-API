@@ -21,8 +21,8 @@ public class TemplateCreateController {
 		this.templateDB = new TemplateDataFile();
 	}
 
-	//http://localhost:8083/templates/create
-	@PostMapping(value = "/templates/create")
+	//http://localhost:8083/template/create
+	@PostMapping(value = "/template/create")
 	
 	@ResponseBody
 	public ResponseEntity<Template> saveTemplate(@RequestBody Template template) throws IOException {

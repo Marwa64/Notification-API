@@ -2,19 +2,18 @@ package com.module.notification.controllers;
 
 import java.io.IOException;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.module.notification.notificationData.TemplateDataFile;
 import com.module.notification.notificationData.TemplateDataInterface;
 
 
 
-@Controller
+@RestController
 public class TemplateDeleteController {
 
 	final TemplateDataInterface templateDB;
@@ -23,11 +22,11 @@ public class TemplateDeleteController {
 		this.templateDB = new TemplateDataFile();
 	}
 
-	//http://localhost:8083/templates/delete?id={id}
-	@RequestMapping(method = RequestMethod.DELETE, value="/template/delete?id={id}")
+	//http://localhost:8083/template/delete?id={id}
+	@DeleteMapping(value="/template/delete")
 
 	@ResponseBody
-	public void deleteTemplate(@RequestParam("id") int tempID) throws IOException {		
-		templateDB.deleteTemplate(tempID);		
-	}	
+	public void deleteTemplate(@RequestParam("id") int tempID) throws IOException {
+		templateDB.deleteTemplate(tempID);
+	}
 }
