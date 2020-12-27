@@ -104,8 +104,6 @@ public class TemplateDataFile implements TemplateDataInterface {
             }
 
         }
-
-
         return null;
     }
 
