@@ -1,33 +1,36 @@
 package com.module.notification.controllers;
 
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
+import java.io.IOException;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.module.notification.notificationData.Template;
+import com.module.notification.notificationData.*;
+
 
 @RestController
 public class TemplateCreateController {
 	
-	//private final TemplateDataInterface templateDB = new TemplateDataFile();
+	final TemplateDataInterface templateDB;
 	
-	@PostMapping(
-		value = "/create/template",
-		consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, //This is to allow use to accept
-		produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} // and produce JSON and XML 
-			)
+	public TemplateCreateController() throws IOException{
+		this.templateDB = new TemplateDataFile();
+	}
+
+	//http://localhost:8083/templates/create
+	@PostMapping(value = "/templates/create")
 	
-	/*@ResponseBody
-	public TemplateDataInterface saveTemplate(@RequestBody Template template) {
-		return TemplateDataFile.addTemplate(template);
-	}*/
 	@ResponseBody
+	public ResponseEntity<Template> saveTemplate(@RequestBody Template template) throws IOException {
+		templateDB.addTemplate(template);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+	}
+	/*@ResponseBody
     public String postBody(@RequestBody String fullName) {
         return "Hello " + fullName;
-    }
+    }*/
 }
