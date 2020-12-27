@@ -124,10 +124,6 @@ public class TemplateDataFile implements TemplateDataInterface {
         return null;
     }
 
-    public static void main(String[] args) throws IOException {
-        TemplateDataFile t=new TemplateDataFile();
-        t.deleteTemplate(1);
-    }
 
 
 
