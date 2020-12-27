@@ -26,10 +26,10 @@ class SearchCriteria {
 }
 
 public interface TemplateDataInterface {
-    void addTemplate(Template t) throws IOException;
-    void updateTemplate(int ID , String language ,String newName ,String newContent) throws IOException;
+    boolean addTemplate(Template t) throws IOException;
+    Template updateTemplate(int ID, Template template) throws IOException;
     Template getTemplate(int templateId) throws IOException;
-    void deleteTemplate(int templateId) throws IOException;
+    boolean deleteTemplate(int templateId) throws IOException;
     Template SearchTemplate(SearchCriteria criteria) throws IOException;
 
 }

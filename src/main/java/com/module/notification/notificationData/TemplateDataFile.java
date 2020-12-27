@@ -2,9 +2,6 @@ package com.module.notification.notificationData;
 import java.io.*;
 
 public class TemplateDataFile implements TemplateDataInterface {
-    File templates = new File("templates.txt");
-    FileWriter myWriter = new FileWriter("templates.txt", true);
-    FileReader reader = new FileReader("templates.txt");
 
     public TemplateDataFile() throws IOException {
     }
@@ -20,22 +17,27 @@ public class TemplateDataFile implements TemplateDataInterface {
     }
 
     @Override
-    public void addTemplate(Template t) throws IOException {
-        myWriter = new FileWriter("templates.txt", true);
+    public boolean addTemplate(Template t) throws IOException {
+        FileWriter myWriter = new FileWriter("templates.txt", true);
+
         myWriter.write(t.ID + " - " + t.language + " - " + t.templateName + " - " + t.content);
         myWriter.write("\n");
         myWriter.close();
 
+
+        return true;
+
     }
 
-    public void updateTemplate(int ID, String language, String newName, String newContent) throws IOException {
-        deleteTemplate(ID);
-        Template t =new Template();
-        t.setID(ID);
-        t.setTemplateName(newName);
-        t.setContent(newContent);
-        t.setLanguage(language);
-        addTemplate(t);
+    public Template updateTemplate(int ID, Template template) throws IOException {
+        if(deleteTemplate(ID)) {
+            template.setID(ID);
+            System.out.println("Here2");
+
+            if(addTemplate(template)) return template;
+        }
+
+        return null;
     }
 
     @Override
@@ -49,13 +51,20 @@ public class TemplateDataFile implements TemplateDataInterface {
     }
 
     @Override
-    public void deleteTemplate(int templateId) throws IOException {
+    public boolean deleteTemplate(int templateId) throws IOException {
+        File templates = new File("templates.txt");
+        FileReader reader = new FileReader(templates);
+        BufferedReader br = new BufferedReader(reader);
+
+
+
         File tempFile = new File("tempFile.txt");
-        FileWriter tempWriter = new FileWriter("tempFile.txt");
+        FileWriter tempWriter = new FileWriter(tempFile);
+
+
+
         String name, content, language, line;
         int id;
-         reader = new FileReader("templates.txt");
-        BufferedReader br = new BufferedReader(reader);
         while ((line = br.readLine()) != null) {
             String[] data = line.split(" - ");
             id = Integer.parseInt(data[0]);
@@ -63,20 +72,24 @@ public class TemplateDataFile implements TemplateDataInterface {
             name = data[2];
             content = data[3];
             if (id != templateId) {
-                tempWriter.write(language + " - " + name + " - " + content);
+                tempWriter.write(id + " - " + language + " - " + name + " - " + content);
                 tempWriter.write("\n");
             }
 
         }
+
+        reader.close();
         br.close();
         tempWriter.close();
 
-        if (!templates.delete())
-            System.out.println("Could not delete file");
+        if(templates.delete()) {
+            if (tempFile.renameTo(templates)) {
+            return true;
+            }
+        }
 
 
-        if (!tempFile.renameTo(templates))
-            System.out.println("Could not rename file");
+        return false;
 
     }
 
@@ -86,7 +99,7 @@ public class TemplateDataFile implements TemplateDataInterface {
         String templateName, content, line;
         String language;
         int ID;
-        reader = new FileReader("templates.txt");
+        FileReader reader = new FileReader("templates.txt");
         BufferedReader br = new BufferedReader(reader);
         while ((line = br.readLine()) != null) {
             String[] data = line.split(" - ");
@@ -95,6 +108,8 @@ public class TemplateDataFile implements TemplateDataInterface {
             templateName = data[2];
             content = data[3];
             if (equals(criteria.ID, ID) && equals(criteria.content, content) && equals(criteria.language, language) && equals(criteria.templateName, templateName)) {
+                br.close();
+                reader.close();
                 Template temp = new Template();
                 temp.setContent(content);
                 temp.setID(ID);
@@ -104,8 +119,16 @@ public class TemplateDataFile implements TemplateDataInterface {
             }
 
         }
+        reader.close();
+        br.close();
         return null;
     }
+
+    public static void main(String[] args) throws IOException {
+        TemplateDataFile t=new TemplateDataFile();
+        t.deleteTemplate(1);
+    }
+
 
 
 }
