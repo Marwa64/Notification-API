@@ -2,7 +2,9 @@ package com.module.notification.notificationData;
 import java.io.*;
 
 public class TemplateDataFile implements TemplateDataInterface {
-
+	
+	private File templates = new File ("templates.txt");
+			
     public TemplateDataFile() throws IOException {
     }
 

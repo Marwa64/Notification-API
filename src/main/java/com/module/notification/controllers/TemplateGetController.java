@@ -18,8 +18,8 @@ public class TemplateGetController {
 	public TemplateGetController() throws IOException{
 		this.templateDB = new TemplateDataFile();
 	}
-	//http://localhost:8083/templates/get?id={id}
-	@GetMapping(value = "/templates/get")
+	//http://localhost:8083/template/get?id={id}
+	@GetMapping(value = "/template/get")
 	
 	@ResponseBody
 	public Template retriveTemplate(@RequestParam("id") int templateID) throws IOException {
