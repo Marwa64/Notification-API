@@ -29,8 +29,4 @@ public class TemplateCreateController {
 		templateDB.addTemplate(template);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
 	}
-	/*@ResponseBody
-    public String postBody(@RequestBody String fullName) {
-        return "Hello " + fullName;
-    }*/
 }

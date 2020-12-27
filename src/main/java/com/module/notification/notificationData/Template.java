@@ -1,11 +1,14 @@
 package com.module.notification.notificationData;
 
 public class Template {
-
-int ID;
-String templateName, content;
-String language;
-
+	
+	static int ID = 0;
+	String templateName, content;
+	String language;
+	
+	public Template() {
+		ID++;
+	}
     public void setID(int ID) {
         this.ID = ID;
     }

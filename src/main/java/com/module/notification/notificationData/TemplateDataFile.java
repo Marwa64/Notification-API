@@ -3,7 +3,7 @@ import java.io.*;
 
 public class TemplateDataFile implements TemplateDataInterface {
     File templates = new File("templates.txt");
-    FileWriter myWriter = new FileWriter("templates.txt");
+    FileWriter myWriter = new FileWriter("templates.txt", true);
     FileReader reader = new FileReader("templates.txt");
 
     public TemplateDataFile() throws IOException {

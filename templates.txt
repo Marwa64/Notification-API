@@ -1,2 +1,0 @@
-0 - english - welcome - hello %n
-0 - english - second - hello %n
