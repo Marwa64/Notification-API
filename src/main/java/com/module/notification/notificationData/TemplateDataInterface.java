@@ -1,6 +1,7 @@
 package com.module.notification.notificationData;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 class SearchCriteria {
     int ID;
@@ -29,6 +30,7 @@ public interface TemplateDataInterface {
     boolean addTemplate(Template t) throws IOException;
     Template updateTemplate(int ID, Template template) throws IOException;
     Template getTemplate(int templateId) throws IOException;
+    ArrayList<Template> getAllTemplates() throws IOException;
     boolean deleteTemplate(int templateId) throws IOException;
     Template SearchTemplate(SearchCriteria criteria) throws IOException;
 

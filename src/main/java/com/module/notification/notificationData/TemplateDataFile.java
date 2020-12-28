@@ -1,5 +1,6 @@
 package com.module.notification.notificationData;
 import java.io.*;
+import java.util.ArrayList;
 
 public class TemplateDataFile implements TemplateDataInterface {
 	
@@ -44,12 +45,32 @@ public class TemplateDataFile implements TemplateDataInterface {
 
     @Override
     public Template getTemplate(int templateId) throws IOException {
-        Template t = new Template();
         SearchCriteria c = new SearchCriteria();
         c.setID(templateId);
-        t = SearchTemplate(c);
 
-        return t;
+        return SearchTemplate(c);
+    }
+    
+    @Override
+    public ArrayList<Template> getAllTemplates() throws IOException {
+        File templates = new File("templates.txt");
+        FileReader reader = new FileReader(templates);
+        BufferedReader br = new BufferedReader(reader);
+
+    	ArrayList<Template> list = new ArrayList<Template>();
+        Template temp = new Template();
+        String line;
+        while ((line = br.readLine()) != null) {
+            String[] data = line.split(" - ");
+            temp.setID(Integer.parseInt(data[0]));
+            temp.setLanguage(data[1]);
+            temp.setTemplateName(data[2]);
+            temp.setContent(data[3]);
+            list.add(temp);
+        }
+        reader.close();
+        br.close();
+        return list;
     }
 
     @Override
@@ -58,12 +79,8 @@ public class TemplateDataFile implements TemplateDataInterface {
         FileReader reader = new FileReader(templates);
         BufferedReader br = new BufferedReader(reader);
 
-
-
         File tempFile = new File("tempFile.txt");
         FileWriter tempWriter = new FileWriter(tempFile);
-
-
 
         String name, content, language, line;
         int id;
@@ -77,7 +94,6 @@ public class TemplateDataFile implements TemplateDataInterface {
                 tempWriter.write(id + " - " + language + " - " + name + " - " + content);
                 tempWriter.write("\n");
             }
-
         }
 
         reader.close();
@@ -89,7 +105,6 @@ public class TemplateDataFile implements TemplateDataInterface {
             return true;
             }
         }
-
 
         return false;
 
@@ -119,7 +134,6 @@ public class TemplateDataFile implements TemplateDataInterface {
                 temp.setTemplateName(templateName);
                 return temp;
             }
-
         }
         reader.close();
         br.close();

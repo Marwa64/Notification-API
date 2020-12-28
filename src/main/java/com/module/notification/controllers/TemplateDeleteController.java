@@ -4,6 +4,7 @@ import java.io.IOException;
 
 
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,11 +23,11 @@ public class TemplateDeleteController {
 		this.templateDB = new TemplateDataFile();
 	}
 
-	//http://localhost:8083/template/delete?id={id}
-	@DeleteMapping(value="/template/delete")
+	//http://localhost:8083/template/delete/{id}
+	@DeleteMapping(value="/template/delete/{id}")
 
 	@ResponseBody
-	public void deleteTemplate(@RequestParam("id") int tempID) throws IOException {
+	public void deleteTemplate(@PathVariable("id") int tempID) throws IOException {
 		templateDB.deleteTemplate(tempID);
 	}
 }
