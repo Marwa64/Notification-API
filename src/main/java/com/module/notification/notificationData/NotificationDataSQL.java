@@ -12,7 +12,19 @@ public class NotificationDataSQL implements NotificationDataInterface {
 			Connection con=DriverManager.getConnection( "jdbc:mysql://db4free.net:3306/notificationapi","marwaomar","123456789");
 			Statement stmt = con.createStatement();
 			notification.createMessage();
-			String sql = "INSERT INTO notifications (subject, channel, receiver, message) " +"VALUES ('"+ notification.getSubject() +"', '"+ notification.getChannel() +"', '"+ notification.getReceiver() +"', '"+ notification.getMessage() +"')";
+			SendNotification sender;
+			if (notification.getChannel().equalsIgnoreCase("email")) {
+				sender = new SendEmail();
+			} else {
+				sender = new SendSMS();
+			}
+			boolean status = sender.send(notification);
+			String sql = "";
+			if (status == true) {
+				sql = "INSERT INTO notifications (subject, channel, receiver, message, status) " +"VALUES ('"+ notification.getSubject() +"', '"+ notification.getChannel() +"', '"+ notification.getReceiver() +"', '"+ notification.getMessage() +"', 'sent')";
+			} else {
+				sql = "INSERT INTO notifications (subject, channel, receiver, message, status) " +"VALUES ('"+ notification.getSubject() +"', '"+ notification.getChannel() +"', '"+ notification.getReceiver() +"', '"+ notification.getMessage() +"', 'not sent')";
+			}
 			stmt.executeUpdate(sql);
 			con.close();  
 		} catch(Exception e){ 
@@ -34,6 +46,7 @@ public class NotificationDataSQL implements NotificationDataInterface {
 		         notification.setChannel(rs.getString("channel"));
 		         notification.setReceiver(rs.getString("receiver"));
 		         notification.setMessage(rs.getString("message"));
+		         notification.setStatus(rs.getString("status"));
 		         mailNotifications.add(notification);
 		      }
 		      rs.close();
@@ -62,6 +75,7 @@ public class NotificationDataSQL implements NotificationDataInterface {
 		         notification.setChannel(rs.getString("channel"));
 		         notification.setReceiver(rs.getString("receiver"));
 		         notification.setMessage(rs.getString("message"));
+		         notification.setStatus(rs.getString("status"));
 		         smsNotifications.add(notification);
 		      }
 		      rs.close();

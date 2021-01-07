@@ -11,6 +11,7 @@ public class Notification {
 	String placeholder1;
 	String placeholder2;
 	String templateName;
+	String status;
 	
 	public void createMessage() throws IOException {
 		Template template = null;
@@ -74,5 +75,11 @@ public class Notification {
 	}
 	public void setTemplateName(String templateName) {
 		this.templateName = templateName;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }
