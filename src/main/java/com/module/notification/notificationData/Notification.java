@@ -14,7 +14,7 @@ public class Notification {
 	
 	public void createMessage() throws IOException {
 		Template template = null;
-		TemplateDataInterface db = new TemplateDataFile();
+		TemplateDataInterface db = new TemplateDataSQL();
 		SearchCriteria criteria = new SearchCriteria();
 		criteria.setTemplateName(templateName);
 		template = db.SearchTemplate(criteria);

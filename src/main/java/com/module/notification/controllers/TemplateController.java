@@ -15,16 +15,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.module.notification.notificationData.Template;
-import com.module.notification.notificationData.TemplateDataFile;
-import com.module.notification.notificationData.TemplateDataInterface;
+import com.module.notification.notificationData.*;
 
 @RestController
 public class TemplateController {
 	final TemplateDataInterface templateDB;
 	
 	public TemplateController() throws IOException {
-		this.templateDB = new TemplateDataFile();
+		this.templateDB = new TemplateDataSQL();
 	}
 
 	//http://localhost:8083/template/create
