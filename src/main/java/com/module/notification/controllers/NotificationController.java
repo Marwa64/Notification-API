@@ -18,7 +18,7 @@ import com.module.notification.notificationData.*;
 @RestController
 public class NotificationController {
     
-    NotificationDataInterface db = new NotificationDataFile();
+    NotificationDataInterface db = new NotificationDataSQL();
     
 	//http://localhost:8083/notification/send
 	@PostMapping(value = "/notification/send")
