@@ -1,0 +1,1 @@
+6 - english - ActivationCode - Hello %n ! Thank you for registering at %p1 . Please enter this code %p2 to activate your account

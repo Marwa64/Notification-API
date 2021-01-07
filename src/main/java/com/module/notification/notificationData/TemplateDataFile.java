@@ -35,7 +35,6 @@ public class TemplateDataFile implements TemplateDataInterface {
     public Template updateTemplate(int ID, Template template) throws IOException {
         if(deleteTemplate(ID)) {
             template.setID(ID);
-            System.out.println("Here2");
 
             if(addTemplate(template)) return template;
         }
@@ -124,7 +123,7 @@ public class TemplateDataFile implements TemplateDataInterface {
             language = data[1];
             templateName = data[2];
             content = data[3];
-            if (equals(criteria.ID, ID) && equals(criteria.content, content) && equals(criteria.language, language) && equals(criteria.templateName, templateName)) {
+            if (equals(criteria.ID, ID) || equals(criteria.content, content) && equals(criteria.language, language) && equals(criteria.templateName, templateName)) {
                 br.close();
                 reader.close();
                 Template temp = new Template();
