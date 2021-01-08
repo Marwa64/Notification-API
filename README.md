@@ -1,5 +1,5 @@
 # Notification-API
-Notification API is a REST API that allows users to send email or sms notifications easily using a variety of ready made templates. The users can also add their own templates to use.
+Notification API is a REST API that allows users to send email or sms notifications with ease using a variety of ready made templates. The users can also add their own templates to use.
 
 ## Access to the API
 
@@ -47,7 +47,7 @@ Routes | Description
 `notification/get/sms` | Get a list of all the SMS Notifications
 `template/create` | Add a Template
 `template/get/{id}` | Get a Template
-`template/get` | Get All Templates
+`template/get` | Gets a list of all the Templates
 `template/update?id={id}` | Update a Template
 `template/delete/{id}` | Delete a Template
 
