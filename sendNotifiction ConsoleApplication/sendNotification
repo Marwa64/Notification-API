@@ -1,0 +1,67 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+public class sendNotification {
+
+    public static void fetchData(String channel){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con= DriverManager.getConnection( "jdbc:mysql://db4free.net:3306/notificationapi","marwaomar","123456789");
+            Statement statement = con.createStatement();
+            ResultSet results = statement.executeQuery("SELECT * From notifications WHERE channel='"+channel+"'");
+            String data;
+
+            System.out.println("Notifications sent by "+channel+" :\n------------------------------\n");
+
+            while (results.next()) {
+                data = results.getString("status");
+                if (data.equalsIgnoreCase("sent")) {
+                    data = results.getString("receiver");
+                    System.out.println("to : " + data);
+
+                    data = results.getString("subject");
+                    System.out.println("subject : " + data);
+
+
+                    data = results.getString("message");
+                    System.out.println("message : " + data);
+
+                    //data = results.getString("id");
+                    //statement.executeUpdate("DELETE FROM notifications  WHERE id ="+data);
+
+
+                    System.out.println();
+
+                }
+
+            }
+
+            con.close();
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
+
+        System.out.println("\n################################################################\n");
+
+    }
+
+    public static void main(String[] args) {
+
+
+
+            //email notifications
+            fetchData("Email");
+
+
+            //email notifications
+            fetchData("SMS");
+
+
+
+
+    }
+
+}
